@@ -46,7 +46,7 @@ def generate_json_easyocr(data, result_file_nm):
         
         df_tmp = pd.read_excel(data, sheet_name=sheet_nm)
         
-        dict_tmp = {'image_name':df_tmp['filename'][0], 
+        dict_tmp = {'image_name':df_tmp['filename'].to_list(), 
                     'bbox':df_tmp['bbox'].to_list(),
                     'x_start':df_tmp['x_start'].to_list(),
                     'y_start':df_tmp['y_start'].to_list(),
