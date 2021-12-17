@@ -27,12 +27,12 @@ for (root, directories, files) in os.walk(workdir):
 # filelist
 # %%
 # using tesseract
-savedir = 'C:/Users/smcljy/data/20211210_OCR_hakathon/img_kerasocr_detection/'
+savedir = 'C:/Users/smcljy/data/20211210_OCR_hakathon/img_detection_01kerasocr/'
 file_name = 'text_export_result_kerasocr'
-nan_df = pd.DataFrame(columns=['filename','bbox','x_start','y_start','x_end','y_end','easyocr_text','tesseract_text'])
-nan_df.to_excel('%s/%s.xlsx'% (savedir, file_name)) 
 
-for file in filelist:#[117:118]:
+result_text = []
+
+for file in filelist:
 
     images = [file]
 
@@ -46,9 +46,7 @@ for file in filelist:#[117:118]:
     img = cv2.imread(file)
     bbx = img.copy()
 
-    result_text = []
-
-    pixel_range = 15
+    pixel_range = 0
     
     for i in range(len(prediction_groups[0])):
         bbox = prediction_groups[0][i][1]
@@ -92,9 +90,9 @@ for file in filelist:#[117:118]:
 
     cv2.imwrite(save_info, bbx)
 
-    df = pd.DataFrame(result_text,columns=['filename','bbox','x_start','y_start','x_end','y_end','text'])
-    with pd.ExcelWriter('%s/%s.xlsx' % (savedir, file_name), mode='a',engine='openpyxl') as writer:
-        df.to_excel(writer,sheet_name=file[len(workdir)+1:len(workdir)+1+11], index=False)
+df = pd.DataFrame(result_text,columns=['filename','bbox','x_start','y_start','x_end','y_end','text'])
+with pd.ExcelWriter('%s/%s.xlsx' % (savedir, file_name), mode='w',engine='openpyxl') as writer:
+    df.to_excel(writer,sheet_name=file[len(workdir)+1:len(workdir)+1+11], index=False)
         
 # plt.rcParams['figure.figsize'] = (20,20)
 # plt.imshow(img)
