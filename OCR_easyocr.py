@@ -66,15 +66,14 @@ for file in filelist:#[117:118]linux #[6:7]window
         linethick = 5
         cv2.rectangle(bbx, tl, br, (0, 0, 255), int(linethick*x_ratio))
 
-    # text recognition
-    result_text = []
-    pixel_range = 0
-    for i in range(len(results)):
-        y_start = round(results[i][0][0][1]) if results[i][0][0][1] == results[i][0][1][1] else round(min(results[i][0][0][1], results[i][0][1][1])) if round(min(results[i][0][0][1], results[i][0][1][1])) > 0 else 0
-        y_end = round(results[i][0][2][1]) if results[i][0][2][1] == results[i][0][3][1] else round(max(results[i][0][2][1], results[i][0][3][1])) if round(max(results[i][0][2][1], results[i][0][3][1])) < img.shape[0] else img.shape[0]
-        x_start = round(results[i][0][0][0]) if results[i][0][0][0] == results[i][0][3][0] else round(min(results[i][0][0][0], results[i][0][3][0])) if round(min(results[i][0][0][0], results[i][0][3][0])) > 0 else 0
-        x_end = round(results[i][0][2][0]) if results[i][0][1][0] == results[i][0][2][0] else round(max(results[i][0][1][0], results[i][0][2][0])) if round(max(results[i][0][1][0], results[i][0][2][0])) < img.shape[1] else img.shape[1]
-        # region = img[y_start-pixel_range:y_end+pixel_range, x_start-pixel_range:x_end+pixel_range].copy()
+        # text recognition
+        pixel_range = 0
+        
+        y_start = tl[1]
+        y_end = br[1]
+        x_start = tl[0]
+        x_end = br[0]
+        
         region = img[
                      y_start-pixel_range if y_start-pixel_range > 0 else 0
                     :y_end+pixel_range if y_end+pixel_range < img.shape[0] else img.shape[0]
@@ -135,14 +134,14 @@ for file in filelist:#[117:118]linux #[6:7]window
         linethick = 5
         cv2.rectangle(bbx, tl, br, (226, 43, 138), int(linethick*x_ratio))
 
-    # text recognition
-    pixel_range = 0
-    for i in range(len(results)):
-        y_start = round(results[i][0][0][1]) if results[i][0][0][1] == results[i][0][1][1] else round(min(results[i][0][0][1], results[i][0][1][1])) if round(min(results[i][0][0][1], results[i][0][1][1])) > 0 else 0
-        y_end = round(results[i][0][2][1]) if results[i][0][2][1] == results[i][0][3][1] else round(max(results[i][0][2][1], results[i][0][3][1])) if round(max(results[i][0][2][1], results[i][0][3][1])) < img.shape[0] else img.shape[0]
-        x_start = round(results[i][0][0][0]) if results[i][0][0][0] == results[i][0][3][0] else round(min(results[i][0][0][0], results[i][0][3][0])) if round(min(results[i][0][0][0], results[i][0][3][0])) > 0 else 0
-        x_end = round(results[i][0][2][0]) if results[i][0][1][0] == results[i][0][2][0] else round(max(results[i][0][1][0], results[i][0][2][0])) if round(max(results[i][0][1][0], results[i][0][2][0])) < img.shape[1] else img.shape[1]
-        # region = img[y_start-pixel_range:y_end+pixel_range, x_start-pixel_range:x_end+pixel_range].copy()
+        # text recognition
+        pixel_range = 0
+        
+        y_start = tl[1]
+        y_end = br[1]
+        x_start = tl[0]
+        x_end = br[0]
+        
         region = img[
                      y_start-pixel_range if y_start-pixel_range > 0 else 0
                     :y_end+pixel_range if y_end+pixel_range < img.shape[0] else img.shape[0]
